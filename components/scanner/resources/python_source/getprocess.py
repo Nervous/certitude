@@ -1,81 +1,36 @@
 #!/usr/bin/python
 
-import os, re, psutil
+# Importing all Windows classes because pyinstaller doesn't support
+# dynamic imports
+import os
+from utils.utils import get_os_version, get_os_name
+from health.windowsXPStateMachine import WindowsXPStateMachine
+from health.windowsVistaStateMachine import WindowsVistaStateMachine
+from health.windows7StateMachine import Windows7StateMachine
+from health.windows8StateMachine import Windows8StateMachine
+from health.windows8_1StateMachine import Windows8_1StateMachine
+from health.windows2003ServerStateMachine import Windows2003ServerStateMachine
+from health.windows2003ServerR2StateMachine import Windows2003ServerR2StateMachine
+from health.windows2008ServerStateMachine import Windows2008ServerStateMachine
+from health.windows2008ServerR2StateMachine import Windows2008ServerR2StateMachine
+from health.windows2012ServerStateMachine import Windows2012ServerStateMachine
+from health.windows2012ServerR2StateMachine import Windows2012ServerR2StateMachine
 
-SIDS = {}
+def getprocess():
+    os_version = get_os_version()
+    params = {}
+    params['system_root'] = os.environ["SYSTEMROOT"]
+    class_name = get_os_name(os_version) + "StateMachine"
+    module_name = "health." + class_name
+    class_name = class_name[0].upper() + class_name[1:]
+    mod = __import__(module_name, fromlist=[class_name], globals=globals())
+    instance_health = getattr(mod, class_name)(params)
+    instance_health.list_running_proccess()
 
-# Well, you know how much Python and encoding are friends ;)
-def sanitize(username):
-
-    ret = username
-    for i in range(0, len(ret)):
-        if ord(ret[i])>128:
-            ret[i]='_'
-
-    return ret
-
-
-#['pid', 'parentpid', 'UserSID', 'Username', 'name', 'path', 'moduleList']
-def getPsList():
-
-    ret = []
-
-    process_list = psutil.process_iter()
-
-    i=0
-
-    for process in process_list:
-
-        PID = process.pid
-        PPID = process.ppid()
-
-        USERSID = '-'
-        USERNAME = '-'
-        try:
-            USERNAME = process.username().encode('utf-8')
-
-            if not USERNAME in SIDS.keys():
-                p = os.popen('.\\PsGetSid.exe /accepteula "'+USERNAME+'"')
-                r = p.read().split('\n')
-                try:
-                    p.close()
-                except IOError:
-                    pass
-
-                if len(r)>1:
-                    SIDS[USERNAME] = r[1]
-                else:
-                    SIDS[USERNAME] = '-'
-            USERSID = SIDS[USERNAME]
-
-        except psutil.AccessDenied, e:
-            pass
-
-        NAME = '-'
-        try:
-            NAME = process.name()
-        except psutil.AccessDenied, e:
-            pass
-
-        PATH = '-'
-        try:
-            PATH = process.exe()
-        except psutil.AccessDenied, e:
-            pass
-
-        #CMDLINE = process.cmdline()
-        MODULE_LIST = '-'
-
-        i+=1
-        ret.append( [ i, PID, PPID, USERSID, USERNAME, NAME, PATH, MODULE_LIST ] )
-
-    return ret
 
 def main():
-
-    process = getPsList()
-
-    print '\n'.join(['\t'.join([str(f) for f in e]) for e in process])
+	getprocess()
 
 if __name__=='__main__':
     main()
+

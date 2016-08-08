@@ -10,8 +10,9 @@ import getfiles
 import getfiles_hash
 import getport
 import getprefetch
-import getprocess
 import getservices
+import getprocess
+import getrecentfiles
 
 collectors = {
     'getarp':getarp,
@@ -20,8 +21,9 @@ collectors = {
     'getfileshash':getfiles_hash,
     'getport':getport,
     'getprefetch':getprefetch,
-    'getprocess':getprocess,
+    'process':getprocess,
     'getservices':getservices,
+    'recentfiles':getrecentfiles
         }
 
 if __name__=='__main__':

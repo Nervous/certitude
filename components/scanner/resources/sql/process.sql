@@ -1,14 +1,10 @@
 --Table creation
 CREATE TABLE process
 (
-	process_id INT PRIMARY KEY NOT NULL,
-	`pid` INT,
-	`parentpid` INT,
-	`UserSID` VARCHAR(184),
-	`Username` VARCHAR(512),
+	`pid` INT PRIMARY KEY NOT NULL
 	`name` VARCHAR(384),
-	`path` VARCHAR(384),
-	`moduleList` TEXT
+	`command` VARCHAR(384),
+	`path` VARCHAR(384)
 );
 
 .separator '	'
