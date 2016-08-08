@@ -1,7 +1,6 @@
 #!/usr/bin/python
 
-# Importing all Windows classes because pyinstaller doesn't support
-# dynamic imports
+# Importing all Windows classes because pyinstaller doesn't support dynamic imports
 import os
 from utils.utils import get_os_version, get_os_name
 from registry.windowsXPUserReg import WindowsXPUserReg
