@@ -12,7 +12,8 @@ flatModuleList = [('ServiceItem','services'),
                     ('PortItem','port'),
                     ('PrefetchItem','prefetch'),
                     ('ProcessItem','process'),
-                    ('RecentFileItem','recentfiles')]
+                    ('RecentFileItem','recentfiles'),
+                    ('StartupFiles','startupfiles')]
 
 logicModuleList = [('ServiceItem','services'),
                     ('RegistryItem','registry'),

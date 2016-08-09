@@ -13,6 +13,7 @@ import getprefetch
 import getservices
 import getprocess
 import getrecentfiles
+import getstartupfiles
 
 collectors = {
     'getarp':getarp,
@@ -23,7 +24,8 @@ collectors = {
     'getprefetch':getprefetch,
     'process':getprocess,
     'getservices':getservices,
-    'recentfiles':getrecentfiles
+    'recentfiles':getrecentfiles,
+    'startupfiles':getstartupfiles
         }
 
 if __name__=='__main__':
