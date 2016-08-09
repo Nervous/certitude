@@ -14,6 +14,7 @@ import getservices
 import getprocess
 import getrecentfiles
 import getstartupfiles
+import getmruhistory
 
 collectors = {
     'getarp':getarp,
@@ -25,7 +26,8 @@ collectors = {
     'process':getprocess,
     'getservices':getservices,
     'recentfiles':getrecentfiles,
-    'startupfiles':getstartupfiles
+    'startupfiles':getstartupfiles,
+    'mruhistory':getmruhistory
         }
 
 if __name__=='__main__':

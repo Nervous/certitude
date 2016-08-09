@@ -12,9 +12,6 @@ class WindowsXPUserReg(_Reg):
     def list_startup_files(self):
         super(WindowsXPUserReg, self).csv_startup_programs()
 
-    def csv_open_save_mru(self):
+    def list_MRU_history(self):
         super(WindowsXPUserReg, self)._csv_open_save_mru(
             r"Software\Microsoft\Windows\CurrentVersion\Explorer\ComDlg32\OpenSaveMRU")
-
-    def csv_user_assist(self):
-        super(WindowsXPUserReg, self)._csv_user_assist(-6, False)

@@ -322,29 +322,6 @@ class _Reg(object):
             csv_writer = get_csv_writer(output)
             write_list_to_csv(to_csv_list, csv_writer)
 
-    def _csv_open_save_mru(self, str_opensave_mru):
-        """Extracts OpenSaveMRU containing information about files selected in the Open and Save view"""
-        # TODO : Win XP
-        hive_list = self._get_list_from_registry_key(registry_obj.HKEY_USERS, str_opensave_mru)
-        to_csv_list = [("COMPUTER_NAME", "TYPE", "LAST_WRITE_TIME", "HIVE", "KEY_PATH", "ATTR_NAME", "REG_TYPE",
-                        "ATTR_TYPE", "ATTR_DATA")]
-        for item in hive_list:
-            if item[KEY_VALUE_STR] == 'VALUE':
-                if item[VALUE_NAME] != "MRUListEx":
-                    pidl = shell.StringAsPIDL(item[VALUE_DATA])
-                    path = shell.SHGetPathFromIDList(pidl)
-                    to_csv_list.append((self.computer_name,
-                                        "opensaveMRU",
-                                        item[VALUE_LAST_WRITE_TIME],
-                                        "HKEY_USERS",
-                                        item[VALUE_PATH],
-                                        item[VALUE_NAME],
-                                        item[KEY_VALUE_STR],
-                                        registry_obj.get_str_type(item[VALUE_TYPE]), path))
-        with open(self.output_dir + "\\" + self.computer_name + "_opensaveMRU.csv", "wb") as output:
-            csv_writer = get_csv_writer(output)
-            write_list_to_csv(to_csv_list, csv_writer)
-
     def csv_registry_services(self):
         """Extracts services"""
         path = r"System\CurrentControlSet\Services"
@@ -377,16 +354,6 @@ class _Reg(object):
        # with open(self.output_dir + "\\" + self.computer_name + "_recent_docs.csv", "wb") as output:
         #csv_writer = get_csv_writer(output)
         write_list_to_csv(to_csv_list, None)
-
-    def csv_installer_folder(self):
-        """Extracts information about folders which are created at installation"""
-        path = r"Software\Microsoft\Windows\CurrentVersion\Installer\Folders"
-        to_csv_list = [("COMPUTER_NAME", "TYPE", "LAST_WRITE_TIME", "HIVE", "KEY_PATH", "ATTR_NAME", "REG_TYPE",
-                        "ATTR_TYPE", "ATTR_DATA")]
-        self._generate_hklm_csv_list(to_csv_list, "installer_folder", path)
-        with open(self.output_dir + "\\" + self.computer_name + "_installer_folder.csv", "wb") as output:
-            csv_writer = get_csv_writer(output)
-            write_list_to_csv(to_csv_list, csv_writer)
 
     def csv_startup_programs(self):
         """Extracts programs running at startup from various keys"""
