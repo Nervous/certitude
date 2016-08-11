@@ -23,8 +23,6 @@ class Windows7StateMachine(_Statemachine):
     def _list_sockets_services(self):
         return super(Windows7StateMachine, self)._list_services()
 
-
-
     def list_running_proccess(self):
         super(Windows7StateMachine, self)._list_running_process(self._list_running())
 

@@ -360,7 +360,10 @@ def write_list_to_csv(arr_data, csv_writer):
     count = 0
     for t in arr_data:
         for e in t:
-            str = str + e + '\t'
+            try:
+                str = str + e + '\t'
+            except TypeError:
+                str = str + '\t' #Cannot e convert to string
         print str.encode("utf-8")
         str = ''
     #print u'\n'.join(map(str, arr_data))

@@ -13,5 +13,4 @@ class Windows2008ServerUserReg(_Reg):
         super(Windows2008ServerUserReg, self).csv_startup_programs()
 
     def list_MRU_history(self):
-        super(Windows2008ServerUserReg, self)._csv_open_save_mru(
-            r"Software\Microsoft\Windows\CurrentVersion\Explorer\ComDlg32\OpenSavePidlMRU")
+        super(Windows2008ServerUserReg, self).csv_run_mru_start()

@@ -24,7 +24,7 @@ def getstartupfiles():
     class_name = class_name[0].upper() + class_name[1:]
     mod = __import__(module_name, fromlist=[class_name], globals=globals())
     instance_registry = getattr(mod, class_name)(params)
-    instance_registry.list_recent_docs()
+    instance_registry.list_startup_files()
 
 
 def main():

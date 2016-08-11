@@ -13,5 +13,4 @@ class Windows2012ServerUserReg(_Reg):
         super(Windows2012ServerUserReg, self).csv_startup_programs()
 
     def list_MRU_history(self):
-        super(Windows2012ServerUserReg, self)._csv_open_save_mru(
-            r"Software\Microsoft\Windows\CurrentVersion\Explorer\ComDlg32\OpenSavePidlMRU")
+        super(Windows2012ServerUserReg, self).csv_run_mru_start()

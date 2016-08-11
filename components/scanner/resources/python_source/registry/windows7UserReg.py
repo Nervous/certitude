@@ -13,5 +13,4 @@ class Windows7UserReg(_Reg):
         super(Windows7UserReg, self).csv_startup_programs()
 
     def list_MRU_history(self):
-        super(Windows7UserReg, self)._csv_open_save_mru(
-            r"Software\Microsoft\Windows\CurrentVersion\Explorer\ComDlg32\OpenSavePidlMRU")
+        super(Windows7UserReg, self).csv_run_mru_start()

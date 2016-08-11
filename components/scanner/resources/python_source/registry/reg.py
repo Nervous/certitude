@@ -332,6 +332,16 @@ class _Reg(object):
             csv_writer = get_csv_writer(output)
             write_list_to_csv(to_csv_list, csv_writer)
 
+    def csv_run_mru_start(self):
+        """Extracts run MRU, containing the last 26 oommands executed using the RUN command"""
+        path = r"Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU"
+        to_csv_list = [("COMPUTER_NAME", "TYPE", "LAST_WRITE_TIME", "HIVE", "KEY_PATH", "ATTR_NAME", "REG_TYPE",
+                        "ATTR_TYPE", "ATTR_DATA")]
+        self._generate_hku_csv_list(to_csv_list, "run_MRU_start", path)
+        #with open(self.output_dir + "\\" + self.computer_name + "_run_MRU_start.csv", "wb") as output:
+            #csv_writer = get_csv_writer(output)
+        write_list_to_csv(to_csv_list, None)
+
     def csv_recent_docs(self):
         """Extracts information about recently opened files saved location and opened date"""
         path = r"Software\Microsoft\Windows\CurrentVersion\Explorer\RecentDocs"
@@ -395,9 +405,9 @@ class _Reg(object):
             self._generate_hku_csv_list(to_csv_list, "startup", full_path)
             full_path = software + wow + path
             self._generate_hku_csv_list(to_csv_list, "startup", full_path)
-        with open(self.output_dir + "\\" + self.computer_name + "_startup.csv", "wb") as output:
-            csv_writer = get_csv_writer(output)
-            write_list_to_csv(to_csv_list, csv_writer)
+       # with open(self.output_dir + "\\" + self.computer_name + "_startup.csv", "wb") as output:
+            #csv_writer = get_csv_writer(output)
+        write_list_to_csv(to_csv_list, None)
 
     def csv_installed_components(self):
         """
@@ -459,15 +469,5 @@ class _Reg(object):
                                     item[KEY_VALUE_STR],
                                     usb_decoded))
         with open(self.output_dir + "\\" + self.computer_name + "_USBHistory.csv", "wb") as output:
-            csv_writer = get_csv_writer(output)
-            write_list_to_csv(to_csv_list, csv_writer)
-
-    def csv_run_mru_start(self):
-        """Extracts run MRU, containing the last 26 oommands executed using the RUN command"""
-        path = r"Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU"
-        to_csv_list = [("COMPUTER_NAME", "TYPE", "LAST_WRITE_TIME", "HIVE", "KEY_PATH", "ATTR_NAME", "REG_TYPE",
-                        "ATTR_TYPE", "ATTR_DATA")]
-        self._generate_hku_csv_list(to_csv_list, "run_MRU_start", path)
-        with open(self.output_dir + "\\" + self.computer_name + "_run_MRU_start.csv", "wb") as output:
             csv_writer = get_csv_writer(output)
             write_list_to_csv(to_csv_list, csv_writer)
